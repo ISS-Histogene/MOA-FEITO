@@ -50,19 +50,28 @@ public class MOAJAVA {
                 System.exit(0);
             }
             else if(opcao==1){
+                long startTime = System.currentTimeMillis();
                 for(int[][] caso : casos){
                     MOAH12014.principal(caso);
                 }
+                long endTime = System.currentTimeMillis();
+                System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
             }
             else if(opcao==2){
+                long startTime = System.currentTimeMillis();
                 for(int[][] caso : casos){
                     MOAH22014.principal(caso);
                 }
+                long endTime = System.currentTimeMillis();
+                System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
             }
             else if(opcao==3){
+                long startTime = System.currentTimeMillis();
                 for(int[][] caso : casos){
                     MOAH32014.principal(caso);
                 }
+                long endTime = System.currentTimeMillis();
+                System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
             }
             else if(opcao==4){
                 System.out.print("Digite primeira constante: ");
@@ -75,20 +84,26 @@ public class MOAJAVA {
                 double c3 = in.nextDouble();
                 System.out.println();
                 if (c1 + c2 + c3 == 1.00){
+                    long startTime = System.currentTimeMillis();
                     for(int[][] caso : casos){
                         MOAH42014.principal(caso,c1, c2, c3);
                     }
+                    long endTime = System.currentTimeMillis();
+                    System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
                 }
                 else{
                     System.out.println("Soma das constantes não é um!");                }
                     
             }
             else if(opcao==5){
+                long startTime = System.currentTimeMillis();
                 for(int[][] caso : casos){
                     MOAH52014.principal(caso);
                 }
+                long endTime = System.currentTimeMillis();
+                System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
             }
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n");
         }
         
     }

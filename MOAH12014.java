@@ -84,7 +84,7 @@ public class MOAH12014 {
     }
     
     public static int principal(int[][] matrizatual){
-
+    long startTime = System.currentTimeMillis();
     Multimap<Integer, String> open_list = TreeMultimap.create(); 
     HashMap<String, Estado> processados = new HashMap();
 
@@ -116,10 +116,12 @@ public class MOAH12014 {
         int y1 = y+1;
         int difmatrizatualx = diferencaMatriz(estadomenor.getMatriz());
         if (difmatrizatualx== 0){
+            long endTime = System.currentTimeMillis();
             System.out.println("---------------------------------------");
             System.out.println("Arvores Geradas: " + arvoresgeradas);
             System.out.println("Arvores Processadas: " + arvoresprocessadas);
             System.out.println("Quantidade de Movimentos: " + estadomenor.getCusto());
+            System.out.println("Tempo de processamento " + (endTime - startTime) + " ms");
             System.out.println("---------------------------------------");
             return 0;
         }

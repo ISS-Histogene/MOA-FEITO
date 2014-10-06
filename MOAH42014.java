@@ -163,149 +163,151 @@ public class MOAH42014 {
     }
     
     public static int principal(int[][] matrizatual, double c1, double c2, double c3){
+        long startTime = System.currentTimeMillis();
+        Multimap<Double, String> open_list = TreeMultimap.create(); 
+        HashMap<String, Estado> processados = new HashMap();
 
-    Multimap<Double, String> open_list = TreeMultimap.create(); 
-    HashMap<String, Estado> processados = new HashMap();
+        double h1 = c1 * h1(matrizatual);
+        double h2 = c2 * h2(matrizatual);
+        double h3 = c3 * h3(matrizatual);
+        double difmatrizatual = h1 + h2 + h3;
 
-    double h1 = c1 * h1(matrizatual);
-    double h2 = c2 * h2(matrizatual);
-    double h3 = c3 * h3(matrizatual);
-    double difmatrizatual = h1 + h2 + h3;
+        String stringmatriz = transformaMatrizString(matrizatual);
+        open_list.put(difmatrizatual, stringmatriz);
+        Estado estadoatual = new Estado(matrizatual, 0);
+        processados.put(stringmatriz, estadoatual);
 
-    String stringmatriz = transformaMatrizString(matrizatual);
-    open_list.put(difmatrizatual, stringmatriz);
-    Estado estadoatual = new Estado(matrizatual, 0);
-    processados.put(stringmatriz, estadoatual);
-    
-    
-    int arvoresgeradas = 0;
-    int arvoresprocessadas = 0;
 
-    while(!open_list.isEmpty()){
+        int arvoresgeradas = 0;
+        int arvoresprocessadas = 0;
 
-        Iterator iterator = open_list.keySet().iterator();
+        while(!open_list.isEmpty()){
 
-        Double key = (Double) iterator.next();
-        String matrizatualx1 = open_list.asMap().get(key).iterator().next();
-        Estado estadomenor = processados.get(matrizatualx1);
-        int altura = estadomenor.getCusto();
+            Iterator iterator = open_list.keySet().iterator();
 
-        //LOCALIZA O ZERO
-        int[] zerot = localizazero(estadomenor.getMatriz());
-        int x = zerot[0];
-        int y = zerot[1];
-        int x0 = x-1;
-        int x1 = x+1;
-        int y0 = y-1;
-        int y1 = y+1;
-        int difmatrizatualx = h1(estadomenor.getMatriz());
-        if (difmatrizatualx== 0){
-            System.out.println("---------------------------------------");
-            System.out.println("Arvores Geradas: " + arvoresgeradas);
-            System.out.println("Arvores Processadas: " + arvoresprocessadas);
-            System.out.println("Quantidade de Movimentos: " + estadomenor.getCusto());
-            System.out.println("---------------------------------------");
-            return 0;
-        }
-        arvoresprocessadas++;
-        int[][] matrizatualx = estadomenor.getMatriz();
-        if(x0>=0){
-            
-            int[][] matriz;
-            matriz = copyarray(matrizatualx);
-            matriz[x][y] = matrizatualx[x0][y];
-            matriz[x0][y] = matrizatualx[x][y];
-            
-            String stringmatriz1 = transformaMatrizString(matriz);
-            if (!(processados.containsKey(stringmatriz1))){
-                    arvoresgeradas++;
-                    h1 = c1 * h1(matriz);
-                    h2 = c2 * h2(matriz);
-                    h3 = c3 * h3(matriz);
-                    double diferencamatriz = h1 + h2 + h3;
-                    double custototal = diferencamatriz + altura + 1;
-                    
-                    Estado estadonovo = new Estado(matriz, altura+1);
-                    open_list.put(custototal, stringmatriz1);
-                    
-                    
-                    processados.put(stringmatriz1, estadonovo);
-                
+            Double key = (Double) iterator.next();
+            String matrizatualx1 = open_list.asMap().get(key).iterator().next();
+            Estado estadomenor = processados.get(matrizatualx1);
+            int altura = estadomenor.getCusto();
+
+            //LOCALIZA O ZERO
+            int[] zerot = localizazero(estadomenor.getMatriz());
+            int x = zerot[0];
+            int y = zerot[1];
+            int x0 = x-1;
+            int x1 = x+1;
+            int y0 = y-1;
+            int y1 = y+1;
+            int difmatrizatualx = h1(estadomenor.getMatriz());
+            if (difmatrizatualx== 0){
+                long endTime = System.currentTimeMillis();
+                System.out.println("---------------------------------------");
+                System.out.println("Arvores Geradas: " + arvoresgeradas);
+                System.out.println("Arvores Processadas: " + arvoresprocessadas);
+                System.out.println("Quantidade de Movimentos: " + estadomenor.getCusto());
+                System.out.println("Tempo de processamento " + (endTime - startTime) + " ms");
+                System.out.println("---------------------------------------");
+                return 0;
             }
-        }
-        if(x1<=3){
-            int[][] matriz;
-            matriz = copyarray(matrizatualx);
-            matriz[x][y] = matrizatualx[x1][y];
-            matriz[x1][y] = matrizatualx[x][y];
-            String stringmatriz2 = transformaMatrizString(matriz);
-            
-            if (!(processados.containsKey(stringmatriz2))){
-                    arvoresgeradas++;
-                    h1 = c1 * h1(matriz);
-                    h2 = c2 * h2(matriz);
-                    h3 = c3 * h3(matriz);
-                    double diferencamatriz = h1 + h2 + h3;
-                    double custototal = diferencamatriz + altura + 1;
-                    
-                    Estado estadonovo = new Estado(matriz, altura+1);
-                    open_list.put(custototal, stringmatriz2);
-                    
-                    
-                    processados.put(stringmatriz2, estadonovo);
-                
-            }
-        }
-        if(y0>=0){
-            int[][] matriz;
-            matriz = copyarray(matrizatualx);
-            matriz[x][y] = matrizatualx[x][y0];
-            matriz[x][y0] = matrizatualx[x][y];
-            String stringmatriz3 = transformaMatrizString(matriz);
-            
-            if (!(processados.containsKey(stringmatriz3))){
-                    arvoresgeradas++;
-                    h1 = c1 * h1(matriz);
-                    h2 = c2 * h2(matriz);
-                    h3 = c3 * h3(matriz);
-                    double diferencamatriz = h1 + h2 + h3;
-                    double custototal = diferencamatriz + altura + 1;
-                    
-                    Estado estadonovo = new Estado(matriz, altura+1);
-                    open_list.put(custototal, stringmatriz3);
-                    
-                    processados.put(stringmatriz3, estadonovo);
-                
-            }
-        }
-        if(y1<=3){
-            int[][] matriz;
-            matriz = copyarray(matrizatualx);
-            matriz[x][y] = matrizatualx[x][y1];
-            matriz[x][y1] = matrizatualx[x][y];
+            arvoresprocessadas++;
+            int[][] matrizatualx = estadomenor.getMatriz();
+            if(x0>=0){
 
-            String stringmatriz4 = transformaMatrizString(matriz);
+                int[][] matriz;
+                matriz = copyarray(matrizatualx);
+                matriz[x][y] = matrizatualx[x0][y];
+                matriz[x0][y] = matrizatualx[x][y];
 
-            if (!(processados.containsKey(stringmatriz4))){
-                    arvoresgeradas++;
-                    h1 = c1 * h1(matriz);
-                    h2 = c2 * h2(matriz);
-                    h3 = c3 * h3(matriz);
-                    double diferencamatriz = h1 + h2 + h3;
-                    double custototal = diferencamatriz + altura + 1;
-                    
-                    Estado estadonovo = new Estado(matriz, altura+1);
-                    open_list.put(custototal, stringmatriz4);
-                    
-                    processados.put(stringmatriz4, estadonovo);
-                
+                String stringmatriz1 = transformaMatrizString(matriz);
+                if (!(processados.containsKey(stringmatriz1))){
+                        arvoresgeradas++;
+                        h1 = c1 * h1(matriz);
+                        h2 = c2 * h2(matriz);
+                        h3 = c3 * h3(matriz);
+                        double diferencamatriz = h1 + h2 + h3;
+                        double custototal = diferencamatriz + altura + 1;
+
+                        Estado estadonovo = new Estado(matriz, altura+1);
+                        open_list.put(custototal, stringmatriz1);
+
+
+                        processados.put(stringmatriz1, estadonovo);
+
+                }
             }
+            if(x1<=3){
+                int[][] matriz;
+                matriz = copyarray(matrizatualx);
+                matriz[x][y] = matrizatualx[x1][y];
+                matriz[x1][y] = matrizatualx[x][y];
+                String stringmatriz2 = transformaMatrizString(matriz);
+
+                if (!(processados.containsKey(stringmatriz2))){
+                        arvoresgeradas++;
+                        h1 = c1 * h1(matriz);
+                        h2 = c2 * h2(matriz);
+                        h3 = c3 * h3(matriz);
+                        double diferencamatriz = h1 + h2 + h3;
+                        double custototal = diferencamatriz + altura + 1;
+
+                        Estado estadonovo = new Estado(matriz, altura+1);
+                        open_list.put(custototal, stringmatriz2);
+
+
+                        processados.put(stringmatriz2, estadonovo);
+
+                }
+            }
+            if(y0>=0){
+                int[][] matriz;
+                matriz = copyarray(matrizatualx);
+                matriz[x][y] = matrizatualx[x][y0];
+                matriz[x][y0] = matrizatualx[x][y];
+                String stringmatriz3 = transformaMatrizString(matriz);
+
+                if (!(processados.containsKey(stringmatriz3))){
+                        arvoresgeradas++;
+                        h1 = c1 * h1(matriz);
+                        h2 = c2 * h2(matriz);
+                        h3 = c3 * h3(matriz);
+                        double diferencamatriz = h1 + h2 + h3;
+                        double custototal = diferencamatriz + altura + 1;
+
+                        Estado estadonovo = new Estado(matriz, altura+1);
+                        open_list.put(custototal, stringmatriz3);
+
+                        processados.put(stringmatriz3, estadonovo);
+
+                }
+            }
+            if(y1<=3){
+                int[][] matriz;
+                matriz = copyarray(matrizatualx);
+                matriz[x][y] = matrizatualx[x][y1];
+                matriz[x][y1] = matrizatualx[x][y];
+
+                String stringmatriz4 = transformaMatrizString(matriz);
+
+                if (!(processados.containsKey(stringmatriz4))){
+                        arvoresgeradas++;
+                        h1 = c1 * h1(matriz);
+                        h2 = c2 * h2(matriz);
+                        h3 = c3 * h3(matriz);
+                        double diferencamatriz = h1 + h2 + h3;
+                        double custototal = diferencamatriz + altura + 1;
+
+                        Estado estadonovo = new Estado(matriz, altura+1);
+                        open_list.put(custototal, stringmatriz4);
+
+                        processados.put(stringmatriz4, estadonovo);
+
+                }
+            }
+            open_list.remove(key, matrizatualx1);
         }
-        open_list.remove(key, matrizatualx1);
+        return 0;
+
     }
-    return 0;
-
-}
     
     
 }
