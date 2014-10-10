@@ -3,9 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package moajava;
+package moa2014;
 
 import java.util.Scanner;
+import moa2014.MOAH12014;
+import moa2014.MOAH22014;
+import moa2014.MOAH32014;
+import moa2014.MOAH42014;
+import moa2014.MOAH52014;
 
 /**
  *
@@ -13,7 +18,7 @@ import java.util.Scanner;
  */
 public class MOAJAVAPP {
     
-    public static void principal(String argsx){
+    public static void main(String argsx, double c1xx, double c2xx, double c3xx){
         int[][] caso1 = {{1, 5, 9, 13},
         {6, 3, 10, 14},
         {4, 11, 0, 15},
@@ -68,25 +73,15 @@ public class MOAJAVAPP {
             System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
         }
         else if(argsx=="4"){
-            System.out.print("Digite primeira constante: ");
-            double c1 = in.nextDouble();
-            System.out.println();
-            System.out.print("Digite segunda constante: ");
-            double c2 = in.nextDouble();
-            System.out.println();
-            System.out.print("Digite terceira constante: ");
-            double c3 = in.nextDouble();
-            System.out.println();
-            if (c1 + c2 + c3 == 1.00){
-                long startTime = System.currentTimeMillis();
-                for(int[][] caso : casos){
-                    MOAH42014.principal(caso,c1, c2, c3);
-                }
-                long endTime = System.currentTimeMillis();
-                System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
+            
+ 
+            long startTime = System.currentTimeMillis();
+            for(int[][] caso : casos){
+                MOAH42014.principal(caso,c1xx, c2xx, c3xx);
             }
-            else{
-                System.out.println("Soma das constantes não é um!");                }
+            long endTime = System.currentTimeMillis();
+            System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
+
 
         }
         else if(argsx=="5"){
@@ -94,6 +89,55 @@ public class MOAJAVAPP {
             for(int[][] caso : casos){
                 MOAH52014.principal(caso);
             }
+            long endTime = System.currentTimeMillis();
+            System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
+        }
+        System.out.println("\n\n\n\n");
+    }
+    
+    public static void main(String argsx, double c1xx, double c2xx, double c3xx, int[][] custom){
+       
+        if(argsx=="1"){
+            long startTime = System.currentTimeMillis();
+
+            MOAH12014.principal(custom);
+            
+            long endTime = System.currentTimeMillis();
+            System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
+        }
+        else if(argsx=="2"){
+            long startTime = System.currentTimeMillis();
+
+            MOAH22014.principal(custom);
+            
+            long endTime = System.currentTimeMillis();
+            System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
+        }
+        else if(argsx=="3"){
+            long startTime = System.currentTimeMillis();
+
+            MOAH32014.principal(custom);
+            
+            long endTime = System.currentTimeMillis();
+            System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
+        }
+        else if(argsx=="4"){
+            
+ 
+            long startTime = System.currentTimeMillis();
+
+            MOAH42014.principal(custom,c1xx, c2xx, c3xx);
+            
+            long endTime = System.currentTimeMillis();
+            System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
+
+
+        }
+        else if(argsx=="5"){
+            long startTime = System.currentTimeMillis();
+
+            MOAH52014.principal(custom);
+            
             long endTime = System.currentTimeMillis();
             System.out.println("\n\nTEMPO DE PROCESSAMENTO TOTAL " + (endTime - startTime) + " ms\n\n");
         }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package moajava;
+package moa2014;
 
 import com.google.common.collect.Multimap;
 import java.io.Console;
@@ -136,7 +136,7 @@ public class MOAH32014 {
                 System.out.println("Arvores Processadas: " + arvoresprocessadas);
                 System.out.println("Quantidade de Movimentos: " + estadomenor.getCusto());
                 System.out.println("Tempo de processamento " + (endTime - startTime) + " ms");
-                System.out.println("---------------------------------------");
+                System.out.println("---------------------------------------\n\n");
                 return 0;
             }
             arvoresprocessadas++;
